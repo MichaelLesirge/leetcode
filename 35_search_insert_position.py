@@ -12,10 +12,9 @@ class Solution:
         while left <= right:
             mid = (left + right) // 2
             mid_num = nums[mid]
-            
             if mid_num > target:
                 right = mid-1
-            elif mid < target:
+            elif mid_num < target:
                 left = mid+1
             else:
                 return mid
