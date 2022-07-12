@@ -11,14 +11,18 @@ class Solution:
             create new list for box | list slicing
         """
         
+        ''' This code sucks '''
+        
+        # rows
         if IsInvalidRows(board):
             return False
         
+        # culumns
         for culumn in range(9):
             if isInvalidSection([board[row][culumn] for row in range(9)]):
                 return False
         
-        
+        # boxes
         for row_start in range(0, 9, 3):
             boxes = [[], [], []]
             for row in range(row_start, row_start+3):
