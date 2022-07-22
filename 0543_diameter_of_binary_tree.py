@@ -5,7 +5,7 @@
 #         self.left = left
 #         self.right = right
 
-# https://leetcode.com/problems/diameter-of-binary-tree/submissions/
+# https://leetcode.com/problems/diameter-of-binary-tree/
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         self.max_diameter = 0
