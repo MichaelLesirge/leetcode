@@ -1,0 +1,29 @@
+# https://leetcode.com/problems/number-of-islands/submissions/
+
+LAND = "1"
+WATER = "0"
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        total = 0
+        for i, row in enumerate(grid):
+            for j, tile in enumerate(row):
+                if tile == LAND:
+                    self.exsploreIsland(grid, (i, j))
+                    total += 1
+        return total
+    
+    def exsploreIsland(self, grid, start_tile_index):
+        # depth first search of island
+        # goes though and converts entire island to water
+        stack = [start_tile_index]
+        while stack:
+            i, j = stack.pop()
+            for val in (-1, 1):
+                next_i, next_j = i+val, j+val
+                if -1 < next_i < len(grid) and grid[next_i][j] == LAND:
+                    stack.append((next_i, j))
+                if -1 < next_j < len(grid[i]) and grid[i][next_j] == LAND:
+                    stack.append((i, next_j))
+            grid[i][j] = WATER
+        
