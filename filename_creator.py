@@ -26,37 +26,41 @@ def multi_input_input(prompt: str, lines: int) -> list[str]:
     print(prompt + ":")
     return [input() for i in range(lines)]
 
-def format_title(title: str) -> tuple[str, str]:
-    number, q_name = title.split(".")
-    q_name = q_name.strip()
-    number = number.strip()
-    number = int(number)
-    name = q_name.lower().replace(" ", "_")
-    return f"{number:04d}_{name}.py", q_name
-
 def format_desc(stats: list[str], question_name: str) -> tuple[str, str]:
-    preformance = f"{stats[1]}, faster than {stats[3]}"
+    performance = f"{stats[1]}, faster than {stats[3]}"
     memory = f"{stats[5]}, less than {stats[7]}"
 
-    return preformance, f"""Runtime: {preformance} of Python3 online submissions for {question_name}.\nMemory Usage: {memory} of Python3 online submissions for {question_name}."""
+    return performance, f"""Runtime: {performance} of Python3 online submissions for {question_name}.\nMemory Usage: {memory} of Python3 online submissions for {question_name}."""
 
 def main():
     print("1. URL at top of code as comment")
-    print("2. Preformance as commit title")
+    print("2. Performance as commit title")
     print("3. All info as commit description")
     print()
 
     try:
-        while True:
+        while True:            
             title = ask("Enter question title")
-            filename, name = format_title(title)
+            number, question_name = title.split(".")
+            filename = f"{int(number.strip()):04d}_{question_name.strip().lower().replace(" ", "_")}.py"
             display(filename)
 
-            stats = multi_input_input("Enters stats", 8)
-            commit_name, commit_desc = format_desc(stats, question_name=name)
-            display(commit_name)
+            stats = multi_input_input("Enters stats", 12)
+            
+            print()
+            
+            display(f"Runtime: {stats[1]}{stats[2]}, faster than {stats[4]}")
+            
             ask("press enter")
-            display(commit_desc)
+            
+            display(rf"""
+Solution for Leetcode problem #{number}.
+
+Python3 online submission for {question_name.strip()}:
+Runtime: {stats[1]}{stats[2]}, quicker than {stats[4]} of users
+Memory: {stats[7]}{stats[8]}, smaller than {stats[10]} of users
+
+https://leetcode.com/problems/""")
 
 
     except KeyboardInterrupt:
